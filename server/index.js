@@ -7,6 +7,7 @@ dotenv.config();
 
 //connection of DB from other folder
 import {dbConnect} from './dbConfig/dbConnect.js';
+import authRoute from './routes/auth.js';
 
 const app = express();
 
@@ -15,11 +16,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-}
-);
+//routes
+app.use("/auth",authRoute)
 
 //connection of DB
 dbConnect().then(()=>{
