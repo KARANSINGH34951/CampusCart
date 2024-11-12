@@ -1,12 +1,21 @@
 import './App.css'
+import { BrowserRouter as Router,Route,Routes } from 'react-router-dom'
+import AuthLayout from './components/auth/AuthLayout'
+import Register from "./pages/auth/Register"
+import Login from "./pages/auth/Login"
 
 function App() {
  
   return (
 <>
-    <div className="text-3xl">
-        <h1>Our App</h1>
-      </div>
+   <Router>
+    <Routes>
+      <Route path='/' element={<AuthLayout />} >
+        <Route path='register' element={<Register/>} />
+        <Route path='login' element={<Login/>}/>
+      </Route>
+    </Routes>
+   </Router>
 </>
   )
 }
