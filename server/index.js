@@ -12,9 +12,14 @@ import authRoute from './routes/auth.js';
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin:"*",
+  credentials:true
+}));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(express.json());
 
 //routes
 app.use("/auth",authRoute)
