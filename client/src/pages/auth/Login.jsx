@@ -1,8 +1,12 @@
 import React from 'react'
+import Forms from '../../components/Common/forms'
 
 const Login = () => {
   return (
-    <div>Login</div>
+    <div>
+
+      <Forms formType="login"/>
+    </div>
   )
 }
 
