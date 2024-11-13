@@ -5,30 +5,60 @@ import bcrypt from 'bcrypt'
 
 const authRoute=express.Router();
 
-authRoute.post("/register", async (req,res)=>{
-   try {
-    const {userName,email,password,role}=req.body;
+authRoute.post("/register", async (req, res) => {
+  try {
+    const { userName, email, password, role } = req.body;
 
-    if(!userName || !email || !password){
-        return res.status(400).json({error:"please fill the data"});
+    // Check if all required fields are provided
+    if (!userName || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        error: "Please fill all required fields",
+      });
     }
 
-    const hashedPassword=await bcrypt.hash(password,10);
+    // Check if user already exists
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({
+        success: false,
+        error: "Email already exists",
+      });
+    }
 
-    const registeruser=new User({
-        userName,email,password:hashedPassword,role
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user
+    const registerUser = new User({
+      userName,
+      email,
+      password: hashedPassword,
+      role,
     });
 
-    const saveduser=await registeruser.save()
+    // Save the user
+    const savedUser = await registerUser.save();
+    const userdetails= await User.findOne({email}).select("userName email").exec()
 
-    if(saveduser){
-        res.status(201).json({message:"user registered successfully"});
+
+    if (savedUser) {
+      return res.status(201).json({
+        success: true,
+        message: "User registered successfully",
+        userdetails
+      });
     }
-    
-   } catch (error) {
-    res.status(400).json({error:error});
-   }
-})
+  } catch (error) {
+    // Send a standardized error response
+    res.status(500).json({
+      success: false,
+      error: "An error occurred during registration",
+      details: error.message, // Optional, for debugging
+    });
+  }
+});
+
 
 authRoute.post("/login", async (req,res)=>{
     try {

@@ -16,6 +16,7 @@ import Checkout from './pages/shopping-view/Checkout';
 import Account from './pages/shopping-view/Account';
 import CheckAuth from './components/Common/ChechAuth';  
 import UnauthPage from './pages/auth-page/UnauthPage';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const isAuthenticated = false;
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <>
+    <ToastContainer/>
       <Router>
         <Routes>
 

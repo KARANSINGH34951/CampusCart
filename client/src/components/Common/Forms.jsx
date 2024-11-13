@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { setuser } from '../../store/auth-slice';
+
 
 const Forms = ({ formType }) => {
+  // const dispatch=useDispatch()
+  // const notify = () => formType=='signup' ? toast("Successfully signUp") :toast("Successfully Login");
+
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,22 +29,65 @@ const Forms = ({ formType }) => {
     });
   };
 
+ 
+  const handleSignup = async () => {
+    setLoading(true);
+    setError(null); 
+    try {
+      const response = await axios.post("http://localhost:3000/auth/register", {
+        userName: formData.name,
+        email: formData.email,
+        password: formData.password
+      });
+
+      // dispatch(setuser(response.data.user));
+      setSuccessMessage('User registered successfully!');
+      console.log(response.data);
+      // notify();
+
+      navigate("/login")
+
+    } catch (err) {
+      setError(err.response?.data?.error || 'An unexpected error occurred.');
+      console.error(err);
+    } finally {
+      setLoading(false); 
+    }
+  };
+
+  
+  const handleLogin = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        email: formData.email,
+        password: formData.password
+      });
+      // notify();
+      console.log(response.data);
+      setSuccessMessage('Login successful!');
+      navigate("/")
+    } catch (err) {
+      setError(err.response?.data?.error || 'An unexpected error occurred.');
+      console.error(err);
+    } finally {
+      setLoading(false); 
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formType === 'login') {
-      // Handle login logic here
-      console.log('Login data:', { email: formData.email, password: formData.password });
+    if (formType === 'signup') {
+      handleSignup();
     } else {
-      // Handle signup logic here
-      const fetchData = async()=>{
-        const users=await axios.get("http://localhost:5000/users")
-      }
-      console.log('Signup data:', formData);
+      handleLogin();
     }
   };
 
   return (
     <div>
+      <ToastContainer />
       <h2>{formType === 'login' ? 'Login' : 'Sign Up'}</h2>
       <form onSubmit={handleSubmit}>
         {formType === 'signup' && (
@@ -65,7 +122,11 @@ const Forms = ({ formType }) => {
             required
           />
         </div>
-        <button type="submit">{formType === 'login' ? 'Login' : 'Sign Up'}</button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+        <button type="submit" disabled={loading}>
+          {loading ? (formType === 'login' ? 'Logging in...' : 'Signing up...') : formType === 'login' ? 'Login' : 'Sign Up'}
+        </button>
       </form>
     </div>
   );
