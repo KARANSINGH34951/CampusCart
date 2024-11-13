@@ -4,7 +4,7 @@ const initialState = {
   isauthenticated: false,
   isloading: false,
   user: {
-    name: '',
+    userName: '',
     email: '',
   },
 };
@@ -16,10 +16,17 @@ const authSlice = createSlice({
     setuser: (state, action) => {
       
       state.user = {
-        name: action.payload.name,
+        userName: action.payload.userName,
         email: action.payload.email,
       };
       state.isauthenticated = true;
+    },
+    logout: (state) => {
+      state.isAuthenticated = false;
+      state.user = {
+        userName: '',
+        email: '',
+      };
     },
   },
 });

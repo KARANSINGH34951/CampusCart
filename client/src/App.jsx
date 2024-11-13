@@ -17,13 +17,11 @@ import Account from './pages/shopping-view/Account';
 import CheckAuth from './components/Common/ChechAuth';  
 import UnauthPage from './pages/auth-page/UnauthPage';
 import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 function App() {
-  const isAuthenticated = false;
-  const user = {
-    name: 'karan',
-    role: 'user'
-  };
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user=useSelector((state)=>state.auth.user)
 
   return (
     <>

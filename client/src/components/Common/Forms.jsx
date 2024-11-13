@@ -8,7 +8,7 @@ import { setuser } from '../../store/auth-slice';
 
 
 const Forms = ({ formType }) => {
-  // const dispatch=useDispatch()
+  const dispatch=useDispatch()
   // const notify = () => formType=='signup' ? toast("Successfully signUp") :toast("Successfully Login");
 
   const navigate=useNavigate();
@@ -34,17 +34,16 @@ const Forms = ({ formType }) => {
     setLoading(true);
     setError(null); 
     try {
-      const response = await axios.post("http://localhost:3000/auth/register", {
+      const response = await axios.post("http://localhost:3000/auth/register",{
         userName: formData.name,
         email: formData.email,
         password: formData.password
-      });
-
-      // dispatch(setuser(response.data.user));
+      })
       setSuccessMessage('User registered successfully!');
-      console.log(response.data);
+      
       // notify();
 
+      toast.success("register successfully !")
       navigate("/login")
 
     } catch (err) {
@@ -65,9 +64,13 @@ const Forms = ({ formType }) => {
         password: formData.password
       });
       // notify();
-      console.log(response.data);
+      // console.log(response.data.userName);
       setSuccessMessage('Login successful!');
-      navigate("/")
+      dispatch(setuser(response.data))
+      toast.success("Login successful!");
+
+      response.data.role==="admin" ? navigate("/admin/dashboard"):navigate("/shop/home")
+      
     } catch (err) {
       setError(err.response?.data?.error || 'An unexpected error occurred.');
       console.error(err);
