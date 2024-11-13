@@ -106,6 +106,40 @@ authRoute.post("/login", async (req, res) => {
 });
 
 
+authRoute.post("/logout",async(req,res)=>{
+  try {
+  res.clearCookie("token",{
+    success:true,
+    message:"logout successfully"
+  })
+  } catch (error) {
+    res.status(404).send({
+      success:false,
+      error:"Error occurred"
+    })
+  }
+})
+
+authRoute.authMiddleware=async(req,res,next)=>{
+  const {token}= req.cookies
+  if(!token){
+    return res.status(401).json({
+      success:false,
+      message:"Unauthorised User1"
+    })
+  }
+
+  try {
+    const decode=jsonwebtoken.verify(token,"karan@123");
+    req.user=decode;
+    next();
+  } catch (error) {
+    return res.status(401).json({
+      success:false,
+      message:"Unauthorised User !"
+    })
+  }
+}
 
 
 export default authRoute;
