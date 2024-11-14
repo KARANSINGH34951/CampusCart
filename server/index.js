@@ -9,6 +9,7 @@ dotenv.config();
 import {dbConnect} from './dbConfig/dbConnect.js';
 import authRoute from './routes/auth.js';
 
+
 const app = express();
 
 app.use(express.json());

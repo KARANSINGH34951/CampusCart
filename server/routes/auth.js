@@ -125,7 +125,7 @@ authRoute.authMiddleware=async(req,res,next)=>{
   if(!token){
     return res.status(401).json({
       success:false,
-      message:"Unauthorised User1"
+      message:"Unauthorised User !"
     })
   }
 
