@@ -8,7 +8,7 @@ dotenv.config();
 //connection of DB from other folder
 import {dbConnect} from './dbConfig/dbConnect.js';
 import authRoute from './routes/auth.js';
-
+import productRoute from './routes/product.js';
 
 const app = express();
 
@@ -24,6 +24,7 @@ app.use(express.json());
 
 //routes
 app.use("/auth",authRoute)
+app.use("/product",productRoute)
 
 //connection of DB
 dbConnect().then(()=>{

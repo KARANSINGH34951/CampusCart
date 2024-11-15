@@ -7,6 +7,7 @@ const Register = () => {
     <div>
         <ToastContainer />
       <Forms formType="signup"/>
+      {/* <h1></h1> */}
     </div>
   )
 }

@@ -18,6 +18,7 @@ import CheckAuth from './components/Common/ChechAuth';
 import UnauthPage from './pages/auth-page/UnauthPage';
 import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
+import AddProducts from './pages/shopping-view/AddProducts';
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -60,6 +61,7 @@ function App() {
             <Route path='listing' element={<Listing />} />
             <Route path='checkout' element={<Checkout />} />
             <Route path='account' element={<Account />} />
+            <Route path='addproduct' element={<AddProducts />} />
           </Route>
 
           <Route path='/unauthpage' element={<UnauthPage />} />
