@@ -9,6 +9,7 @@ dotenv.config();
 import {dbConnect} from './dbConfig/dbConnect.js';
 import authRoute from './routes/auth.js';
 import productRoute from './routes/product.js';
+import uploadRoute from './routes/uploads.js';
 
 const app = express();
 
@@ -23,8 +24,9 @@ app.use(cookieParser());
 app.use(express.json());
 
 //routes
-app.use("/auth",authRoute)
-app.use("/product",productRoute)
+app.use("/auth",authRoute);
+app.use("/product",productRoute);
+app.use("/upload",uploadRoute);
 
 //connection of DB
 dbConnect().then(()=>{

@@ -30,7 +30,7 @@ const Home = () => {
         {products.map((product) => (
           <div key={product._id} className="bg-white shadow-lg rounded-lg p-4 w-72">
             <img 
-              src={product.images[0]?.url || 'https://via.placeholder.com/150'} 
+              src={product.images || 'https://via.placeholder.com/150'} 
               alt={product.name} 
               className="w-full h-48 object-cover rounded-md mb-4"
             />

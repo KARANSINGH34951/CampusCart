@@ -3,7 +3,7 @@ import Product from '../models/product.js';
 
 const productRoute= express.Router();
 
-productRoute.post("/create",async (req,res)=>{
+productRoute.post("/createproduct",async (req,res)=>{
     try {
       const {name,description,price,category,stock,images,ratings}=req.body;
       const prouctsave=new Product({

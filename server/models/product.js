@@ -24,18 +24,11 @@ const productSchema = new mongoose.Schema({
     min: 0,
     default: 0,
   },
-  images: [
-    {
-      url: {
-        type: String,
-        required: true,
-      },
-      altText: {
-        type: String,
-        default: 'Default product image', 
-      },
-    },
-  ],
+  images: {
+    type: [String],
+    required: true,
+    default: "https://via",
+  },
   ratings: {
     type: Number,
     default: 0,

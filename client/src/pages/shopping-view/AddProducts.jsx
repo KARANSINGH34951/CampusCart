@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddProducts = () => {
+  const navigate = useNavigate();
   const [productData, setProductData] = useState({
     name: '',
     description: '',
     price: '',
     category: '',
     stock: '',
-    images: '',
+    images: '', 
     ratings: 0,
   });
+
+  const [selectedFile, setSelectedFile] = useState(null); // Temporary file storage
+  const [uploading, setUploading] = useState(false); // To track the upload status
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,12 +25,39 @@ const AddProducts = () => {
     });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file); // Store the file temporarily
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!selectedFile) {
+      alert('Please select an image before submitting.');
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:3000/products/add', productData);
-      alert('Product added successfully!');
+      
+      setUploading(true);
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+
+      const uploadResponse = await axios.post('http://localhost:3000/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      const imageUrl = uploadResponse.data.imageUrl; // Get the uploaded image URL
+
+      // Add the product data with the uploaded image URL
+      const response = await axios.post('http://localhost:3000/product/createproduct', {
+        ...productData,
+        images: imageUrl, // Set the uploaded image URL
+      });
+
       setProductData({
         name: '',
         description: '',
@@ -35,9 +67,13 @@ const AddProducts = () => {
         images: '',
         ratings: 0,
       });
+      setSelectedFile(null);
+      navigate("/shop/home")
     } catch (error) {
       console.error('Error adding product:', error);
       alert('Failed to add product');
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -45,11 +81,12 @@ const AddProducts = () => {
     <div className="p-6 max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-semibold text-center text-indigo-600 mb-8">Add a New Product</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
-        
-        {/* Product Name */}
+        {/* Product Name and Price */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="name" className="block text-lg font-medium text-gray-700 mb-2">Product Name</label>
+            <label htmlFor="name" className="block text-lg font-medium text-gray-700 mb-2">
+              Product Name
+            </label>
             <input
               type="text"
               id="name"
@@ -62,9 +99,10 @@ const AddProducts = () => {
             />
           </div>
 
-          {/* Price */}
           <div>
-            <label htmlFor="price" className="block text-lg font-medium text-gray-700 mb-2">Price</label>
+            <label htmlFor="price" className="block text-lg font-medium text-gray-700 mb-2">
+              Price
+            </label>
             <input
               type="number"
               id="price"
@@ -81,7 +119,9 @@ const AddProducts = () => {
 
         {/* Description */}
         <div>
-          <label htmlFor="description" className="block text-lg font-medium text-gray-700 mb-2">Description</label>
+          <label htmlFor="description" className="block text-lg font-medium text-gray-700 mb-2">
+            Description
+          </label>
           <textarea
             id="description"
             name="description"
@@ -95,9 +135,10 @@ const AddProducts = () => {
 
         {/* Category and Stock */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Category */}
           <div>
-            <label htmlFor="category" className="block text-lg font-medium text-gray-700 mb-2">Category</label>
+            <label htmlFor="category" className="block text-lg font-medium text-gray-700 mb-2">
+              Category
+            </label>
             <input
               type="text"
               id="category"
@@ -110,9 +151,10 @@ const AddProducts = () => {
             />
           </div>
 
-          {/* Stock */}
           <div>
-            <label htmlFor="stock" className="block text-lg font-medium text-gray-700 mb-2">Stock</label>
+            <label htmlFor="stock" className="block text-lg font-medium text-gray-700 mb-2">
+              Stock
+            </label>
             <input
               type="number"
               id="stock"
@@ -126,23 +168,26 @@ const AddProducts = () => {
           </div>
         </div>
 
-        {/* Image URL */}
+        {/* Image Upload */}
         <div>
-          <label htmlFor="images" className="block text-lg font-medium text-gray-700 mb-2">Image URL</label>
+          <label htmlFor="images" className="block text-lg font-medium text-gray-700 mb-2">
+            Product Image
+          </label>
           <input
-            type="text"
+            type="file"
             id="images"
             name="images"
-            value={productData.images}
-            onChange={handleChange}
+            onChange={handleFileChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            placeholder="Enter image URL (optional)"
           />
+          {uploading && <p className="text-sm text-gray-500 mt-2">Uploading image...</p>}
         </div>
 
         {/* Ratings */}
         <div>
-          <label htmlFor="ratings" className="block text-lg font-medium text-gray-700 mb-2">Ratings</label>
+          <label htmlFor="ratings" className="block text-lg font-medium text-gray-700 mb-2">
+            Ratings
+          </label>
           <input
             type="number"
             id="ratings"
