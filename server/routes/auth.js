@@ -106,19 +106,30 @@ authRoute.post("/login", async (req, res) => {
 });
 
 
-authRoute.post("/logout",async(req,res)=>{
+authRoute.get("/logout", async (req, res) => {
   try {
-  res.clearCookie("token",{
-    success:true,
-    message:"logout successfully"
-  })
+    // Clear the cookie named "token"
+    res.clearCookie("token", {
+      httpOnly: true, // Match options with how the token was set
+      secure: true, // Include this only if you're using HTTPS
+      sameSite: "strict", // SameSite policy for added security
+    });
+
+    // Send a success response
+    res.status(200).send({
+      success: true,
+      message: "Logout successfully",
+    });
   } catch (error) {
-    res.status(404).send({
-      success:false,
-      error:"Error occurred"
-    })
+    console.error("Error during logout: ", error);
+
+    res.status(500).send({
+      success: false,
+      error: "An error occurred during logout.",
+    });
   }
-})
+});
+
 
 authRoute.authMiddleware=async(req,res,next)=>{
   const {token}= req.cookies

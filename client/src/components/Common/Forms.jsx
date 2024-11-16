@@ -56,7 +56,7 @@ const Forms = ({ formType }) => {
       });
       setSuccessMessage('Login successful!');
       dispatch(setuser(response.data));
-      toast.success('Login successful! Welcome back!');
+      // toast.success('Login successful! Welcome back!');
       response.data.role === 'admin'
         ? navigate('/admin/dashboard')
         : navigate('/shop/home');
@@ -69,7 +69,7 @@ const Forms = ({ formType }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     if (formType === 'signup') {
       handleSignup();
     } else {
@@ -77,13 +77,18 @@ const Forms = ({ formType }) => {
     }
   };
 
+  const handlenavigation=()=>{
+   formType==="signup"? navigate("/login") : navigate("/")
+  }
+
+
   return (
     <div className="flex flex-col items-center justify-center h-full bg-white p-6 shadow-lg rounded-lg">
       <ToastContainer />
       <h2 className="text-3xl font-semibold mb-6 text-gray-800">
         {formType === 'login' ? 'Login' : 'Sign Up'}
       </h2>
-      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
+      <form onSubmit={handleSubmit} className="w-[350px] space-y-4">
         {formType === 'signup' && (
           <div>
             <label htmlFor="name" className="text-gray-700">Name</label>
@@ -130,7 +135,11 @@ const Forms = ({ formType }) => {
         >
           {loading ? (formType === 'login' ? 'Logging in...' : 'Signing up...') : formType === 'login' ? 'Login' : 'Sign Up'}
         </button>
+
+       {formType==="signup" ? <h2>Already have Account ? <button onClick={handlenavigation} className='text-blue-600'>Login Now !</button></h2> :<h2>New to the CampusCart ? <button className='text-blue-600' onClick={handlenavigation}>Sign Up Now !</button></h2>}
       </form>
+
+
     </div>
   );
 };

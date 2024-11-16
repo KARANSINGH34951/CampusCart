@@ -21,8 +21,8 @@ const productSchema = new mongoose.Schema({
   },
   stock: {
     type: Number,
-    // required: true,
     min: 0,
+    default: 0,
   },
   images: [
     {
@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema({
       },
       altText: {
         type: String,
-        default: 'https://th.bing.com/th/id/OIP.WnzrXmqPbOE9lmZPgrC0_AHaHa?rs=1&pid=ImgDetMain',
+        default: 'Default product image', 
       },
     },
   ],
@@ -50,6 +50,11 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+productSchema.pre('save', function (next) {
+  this.updatedAt = Date.now();
+  next();
 });
 
 const Product = mongoose.model('Product', productSchema);

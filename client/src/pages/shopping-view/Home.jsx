@@ -20,7 +20,7 @@ const Home = () => {
   }, []);
 
   const handleAddProduct = () => {
-    navigate("shop/add-product"); 
+    navigate("/shop/addproduct"); 
   };
 
   return (

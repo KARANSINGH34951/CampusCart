@@ -1,7 +1,31 @@
+import axios from 'axios';
 import React from 'react';
 import { FaShoppingCart, FaUserCircle, FaSearch } from 'react-icons/fa';
+import {useNavigate} from "react-router-dom"
+import {useDispatch} from "react-redux"
+import { logout } from '../../store/auth-slice';
 
 function ShoppingHeader() {
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+
+  const handlelogout = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/auth/logout"); // Fix protocol
+      console.log(response.data); // Log server response
+  
+      if (response.status === 200) { // Check if logout is successful
+        dispatch(logout()); // Dispatch logout action
+        navigate("/"); // Redirect to home
+      } else {
+        console.error("Logout failed: ", response.data);
+      }
+    } catch (error) {
+      console.error("Error during logout: ", error);
+    }
+  };
+                 
+
   return (
     <nav className="bg-white shadow-lg">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
@@ -43,6 +67,8 @@ function ShoppingHeader() {
           <a href="/account" className="text-gray-800 hover:text-gray-500">
             <FaUserCircle className="text-2xl" />
           </a>
+
+          <button className='bg-black text-white rounded-lg px-5 py-2' onClick={handlelogout}>Logout</button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -83,6 +109,7 @@ function ShoppingHeader() {
         >
           Categories
         </a>
+       
       </div>
     </nav>
   );
