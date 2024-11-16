@@ -10,6 +10,7 @@ import {dbConnect} from './dbConfig/dbConnect.js';
 import authRoute from './routes/auth.js';
 import productRoute from './routes/product.js';
 import uploadRoute from './routes/uploads.js';
+import adminRouter from './routes/admin.js';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use("/auth",authRoute);
 app.use("/product",productRoute);
 app.use("/upload",uploadRoute);
+app.use("/admin",adminRouter);
 
 //connection of DB
 dbConnect().then(()=>{

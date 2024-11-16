@@ -20,8 +20,8 @@ const AdminLayout = () => {
         </div>
 
         {/* Main Content */}
-        <main className='p-8 bg-gray-50 min-h-screen flex justify-center items-center'>
-          <h1 className='text-2xl font-semibold text-gray-800 mb-6'>Admin Page</h1>
+        <main className='p-8 bg-gray-50 min-h-screen w-full flex justify-center'>
+          {/* <h1 className='text-2xl font-semibold text-gray-800 mb-6'>Admin Page</h1> */}
           <Outlet />
         </main>
       </div>
