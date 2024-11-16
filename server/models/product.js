@@ -18,6 +18,19 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
+    enum: [
+      'Books and Stationery',
+      'Electronics',
+      'Clothing and Merchandise',
+      'Hostel Essentials',
+      'Fitness and Sports',
+      'Accessories',
+      'Events and Tickets',
+      'Art and Craft',
+      'Services',
+      'Health and Wellness',
+      'Miscellaneous',
+    ],
   },
   stock: {
     type: Number,
@@ -27,7 +40,7 @@ const productSchema = new mongoose.Schema({
   images: {
     type: [String],
     required: true,
-    default: "https://via",
+    default: "https://via.placeholder.com/150", 
   },
   ratings: {
     type: Number,

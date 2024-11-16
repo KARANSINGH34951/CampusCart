@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom"
 import {useDispatch} from "react-redux"
 import { logout } from '../../store/auth-slice';
 
+
 function ShoppingHeader() {
   const navigate=useNavigate();
   const dispatch=useDispatch();
@@ -27,7 +28,8 @@ function ShoppingHeader() {
                  
 
   return (
-    <nav className="bg-white shadow-lg">
+  <div>
+      <nav className="bg-white shadow-lg">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         {/* Logo */}
         <a href="/" className="text-2xl font-bold text-gray-800">
@@ -112,6 +114,10 @@ function ShoppingHeader() {
        
       </div>
     </nav>
+
+    <div className='mt-16'>
+    </div>
+  </div>
   );
 }
 
