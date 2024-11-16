@@ -19,6 +19,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: [
+      'Free or Donate',
       'Books and Stationery',
       'Electronics',
       'Clothing and Merchandise',

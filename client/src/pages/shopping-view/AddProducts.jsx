@@ -9,9 +9,7 @@ const AddProducts = () => {
     description: '',
     price: '',
     category: '',
-    stock: '',
-    images: '', 
-    ratings: 0,
+    images: '',
   });
 
   const [selectedFile, setSelectedFile] = useState(null); // Temporary file storage
@@ -63,9 +61,8 @@ const AddProducts = () => {
         description: '',
         price: '',
         category: '',
-        stock: '',
         images: '',
-        ratings: 0,
+        
       });
       setSelectedFile(null);
       navigate("/shop/home")
@@ -134,39 +131,36 @@ const AddProducts = () => {
         </div>
 
         {/* Category and Stock */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label htmlFor="category" className="block text-lg font-medium text-gray-700 mb-2">
-              Category
-            </label>
-            <input
-              type="text"
-              id="category"
-              name="category"
-              value={productData.category}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-              placeholder="Enter product category"
-            />
-          </div>
+        <div>
+  <label htmlFor="category" className="block text-lg font-medium text-gray-700 mb-2">
+    Category
+  </label>
+  <select
+    id="category"
+    name="category"
+    value={productData.category}
+    onChange={handleChange}
+    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    required
+  >
+    <option value="" disabled>
+      Select a category
+    </option>
+    <option value="Free or Donate">Free or Donate</option>
+    <option value="Books and Stationery">Books and Stationery</option>
+    <option value="Electronics">Electronics</option>
+    <option value="Clothing and Merchandise">Clothing and Merchandise</option>
+    <option value="Hostel Essentials">Hostel Essentials</option>
+    <option value="Fitness and Sports">Fitness and Sports</option>
+    <option value="Accessories">Accessories</option>
+    <option value="Events and Tickets">Events and Tickets</option>
+    <option value="Art and Craft">Art and Craft</option>
+    <option value="Services">Services</option>
+    <option value="Health and Wellness">Health and Wellness</option>
+    <option value="Miscellaneous">Miscellaneous</option>
+  </select>
+</div>
 
-          <div>
-            <label htmlFor="stock" className="block text-lg font-medium text-gray-700 mb-2">
-              Stock
-            </label>
-            <input
-              type="number"
-              id="stock"
-              name="stock"
-              value={productData.stock}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              min="0"
-              placeholder="Enter product stock"
-            />
-          </div>
-        </div>
 
         {/* Image Upload */}
         <div>
@@ -184,7 +178,7 @@ const AddProducts = () => {
         </div>
 
         {/* Ratings */}
-        <div>
+        {/* <div>
           <label htmlFor="ratings" className="block text-lg font-medium text-gray-700 mb-2">
             Ratings
           </label>
@@ -199,7 +193,7 @@ const AddProducts = () => {
             max="5"
             placeholder="Rate the product (0 to 5)"
           />
-        </div>
+        </div> */}
 
         {/* Submit Button */}
         <div className="text-center">
