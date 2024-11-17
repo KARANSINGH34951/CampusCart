@@ -1,65 +1,86 @@
 import axios from 'axios';
-import React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { Card, Grid, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Charts from '../../components/admin-view/Charts';
 
 const AdminDashboard = () => {
-
-  const [users,setusers]=useState([]);
-  const getusers=async()=>{
-    const usersdata= await axios.get("http://localhost:3000/admin");
-
-    setusers(usersdata.data.users);
-    console.log(usersdata.data.users);
-    
-  }
-  useEffect(()=>{
-    getusers();
-  },[])
+  const [users, setUsers] = useState([]);
+  
+  const getUsers = async () => {
+    try {
+      const usersData = await axios.get("http://localhost:3000/admin");
+      setUsers(usersData.data.users);
+      console.log(usersData.data.users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+  
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
-    <div>
+    <div style={{ padding: '20px' }}>
+      {/* Dashboard Stats Cards */}
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={4}>
+          <Card sx={{ backgroundColor: '#1976d2', color: 'white', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Typography variant="h5">Total Users</Typography>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Card sx={{ backgroundColor: '#212121', color: 'white', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Typography variant="h5">Active Users</Typography>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Card sx={{ backgroundColor: '#212121', color: 'white', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Typography variant="h5">Inactive Users</Typography>
+          </Card>
+        </Grid>
+      </Grid>
 
-      <div className='grid grid-cols-3 w-full text-white gap-3 items-center'>
-          <div className='col-span-1 bg-blue-600'>
-            <div className='h-[200px] w-[250px] rounded-full flex'>
-                  <h1>Total Users</h1>
-            </div>
-          </div>
-          <div className='col-span-1 bg-black'>
-            <div className='h-[200px] w-[250px] rounded-full flex'>
-                  <h1>Total Users</h1>
-            </div>
-          </div>
-          <div className='col-span-1 bg-black'>
-            <div className='h-[200px] w-[250px] rounded-full flex'>
-                  <h1>Total Users</h1>
-            </div>
-          </div>      
+      {/* Users List Table */}
+      <div style={{ marginTop: '20px' }}>
+        <Typography variant="h4" gutterBottom>
+          Users List
+        </Typography>
+        
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell><strong>User Name</strong></TableCell>
+                <TableCell><strong>Email</strong></TableCell>
+                <TableCell><strong>Role</strong></TableCell>
+                <TableCell><strong>Created At</strong></TableCell>
+                <TableCell><strong>Action</strong></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((user, index) => (
+                <TableRow key={index}>
+                  <TableCell>{user.userName}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.role}</TableCell>
+                  <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
+                  <TableCell>
+                    <Button variant="contained" color="error" size="small">
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
 
-      <div>
-
-        <h1 className='text-4xl'>Users List</h1>
-        <table>
-          {
-            users.map((user, index)=>{
-              return(
-                <tr key={index}>
-                <td>{user.userName}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>{user.createdAt}</td>
-                <td><button>Delete</button></td>
-              </tr>
-              )
-})
-          }
-        </table>
-      </div>
-      <Charts/>
+      {/* Charts Section */}
+      <Charts />
     </div>
-  )
-}
+  );
+};
 
-export default AdminDashboard
+export default AdminDashboard;
