@@ -5,35 +5,36 @@ import Charts from '../../components/admin-view/Charts';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
-  
+
+  // Fetch Users
   const getUsers = async () => {
     try {
       const usersData = await axios.get("http://localhost:3000/admin");
       setUsers(usersData.data.users);
-      console.log(usersData.data.users);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   };
 
-  const handledelete=(id)=>{
-    axios.delete(`http://localhost:3000/admin/${id}`)
-    .then((res)=>{
-      console.log(res.data);
-      getUsers();
-    })
-    .catch((error)=>{
-      console.log(error);
-    });
-  }
-  
+  // Delete User
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await axios.delete(`http://localhost:3000/admin/${id}`);
+        getUsers(); // Refresh the user list
+      } catch (error) {
+        console.error("Error deleting user:", error);
+      }
+    }
+  };
+
   useEffect(() => {
     getUsers();
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
-      {/* Dashboard Stats Cards */}
+    <div className="p-8 bg-gray-50 flex flex-col items-center">
+      {/* Dashboard Stats */}
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
           <Card sx={{ backgroundColor: '#1976d2', color: 'white', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -52,41 +53,40 @@ const AdminDashboard = () => {
         </Grid>
       </Grid>
 
-      {/* Users List Table */}
-      <div style={{ marginTop: '20px' }}>
-        <Typography variant="h4" gutterBottom>
-          Users List
-        </Typography>
-        
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell><strong>User Name</strong></TableCell>
-                <TableCell><strong>Email</strong></TableCell>
-                <TableCell><strong>Role</strong></TableCell>
-                <TableCell><strong>Created At</strong></TableCell>
-                <TableCell><strong>Action</strong></TableCell>
+      {/* Users Table */}
+      <TableContainer sx={{ marginTop: '20px', width: '100%' }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell><strong>User Name</strong></TableCell>
+              <TableCell><strong>Email</strong></TableCell>
+              <TableCell><strong>Role</strong></TableCell>
+              <TableCell><strong>Created At</strong></TableCell>
+              <TableCell><strong>Action</strong></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user._id}>
+                <TableCell>{user.userName}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.role}</TableCell>
+                <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
+                <TableCell>
+                  <Button
+                    onClick={() => handleDelete(user._id)}
+                    variant="contained"
+                    color="error"
+                    size="small"
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((user, index) => (
-                <TableRow key={index}>
-                  <TableCell>{user.userName}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role}</TableCell>
-                  <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
-                  <TableCell>
-                    <Button onClick={()=>handledelete(user._id)} variant="contained" color="error" size="small">
-                      Delete
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
       {/* Charts Section */}
       <Charts />
