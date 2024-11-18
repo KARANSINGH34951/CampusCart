@@ -15,6 +15,17 @@ const AdminDashboard = () => {
       console.error("Error fetching users:", error);
     }
   };
+
+  const handledelete=(id)=>{
+    axios.delete(`http://localhost:3000/admin/${id}`)
+    .then((res)=>{
+      console.log(res.data);
+      getUsers();
+    })
+    .catch((error)=>{
+      console.log(error);
+    });
+  }
   
   useEffect(() => {
     getUsers();
@@ -66,7 +77,7 @@ const AdminDashboard = () => {
                   <TableCell>{user.role}</TableCell>
                   <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
                   <TableCell>
-                    <Button variant="contained" color="error" size="small">
+                    <Button onClick={()=>handledelete(user._id)} variant="contained" color="error" size="small">
                       Delete
                     </Button>
                   </TableCell>
