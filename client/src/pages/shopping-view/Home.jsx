@@ -76,8 +76,13 @@ const Home = () => {
                     <p className="text-lg font-bold text-blue-500">${product.price}</p>
                     <p className="text-sm text-yellow-600">{product.ratings} / 5</p>
                   </div>
+                  
+                  {/* Displaying the brand and year */}
+                  <p className="text-sm text-gray-500 mb-2">Branch: {product.branch}</p>
+                  <p className="text-sm text-gray-500 mb-2">Year: {product.year}</p>
+
                   <p className="text-sm text-gray-500 mb-2">Category: {product.category}</p>
-                  <p className="text-sm text-green-600 mb-4">In Stock: {product.stock}</p>
+                  
 
                   {/* Buy Now Button */}
                   <button
