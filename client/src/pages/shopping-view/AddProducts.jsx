@@ -89,8 +89,7 @@ const AddProducts = () => {
     <div className="p-6 max-w-5xl mx-auto bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-semibold text-center text-indigo-600 mb-8">Add a New Product</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Product Name */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="name" className="block text-lg font-medium text-gray-700 mb-2">
               Product Name
@@ -107,7 +106,6 @@ const AddProducts = () => {
             />
           </div>
 
-          {/* Price */}
           <div>
             <label htmlFor="price" className="block text-lg font-medium text-gray-700 mb-2">
               Price
@@ -126,10 +124,103 @@ const AddProducts = () => {
           </div>
         </div>
 
-        {/* Description */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="category" className="block text-lg font-medium text-gray-700 mb-2">
+              Category
+            </label>
+            <select
+              id="category"
+              name="category"
+              value={productData.category}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
+            >
+              <option value="" disabled>
+                Select a category
+              </option>
+              <option value="Free or Donate">Free or Donate</option>
+              <option value="Books and Stationery">Books and Stationery</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Clothing and Merchandise">Clothing and Merchandise</option>
+              <option value="Hostel Essentials">Hostel Essentials</option>
+              <option value="Fitness and Sports">Fitness and Sports</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Events and Tickets">Events and Tickets</option>
+              <option value="Art and Craft">Art and Craft</option>
+              <option value="Services">Services</option>
+              <option value="Health and Wellness">Health and Wellness</option>
+              <option value="Miscellaneous">Miscellaneous</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="branch" className="block text-lg font-medium text-gray-700 mb-2">
+              Branch
+            </label>
+            <select
+              id="branch"
+              name="branch"
+              value={productData.branch}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
+            >
+              <option value="" disabled>
+                Select your branch
+              </option>
+              {branches.map((branch, index) => (
+                <option key={index} value={branch}>
+                  {branch}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="year" className="block text-lg font-medium text-gray-700 mb-2">
+              Year
+            </label>
+            <select
+              id="year"
+              name="year"
+              value={productData.year}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
+            >
+              <option value="" disabled>
+                Select your year
+              </option>
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="4th Year">Final Year</option>
+              <option value="Alumni">Alumni</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="images" className="block text-lg font-medium text-gray-700 mb-2">
+              Product Image
+            </label>
+            <input
+              type="file"
+              id="images"
+              name="images"
+              onChange={handleFileChange}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            {uploading && <p className="text-sm text-gray-500 mt-2">Uploading image...</p>}
+          </div>
+        </div>
+
         <div>
           <label htmlFor="description" className="block text-lg font-medium text-gray-700 mb-2">
-            Description
+            Product Description
           </label>
           <textarea
             id="description"
@@ -137,98 +228,12 @@ const AddProducts = () => {
             value={productData.description}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
+            rows="4"
             placeholder="Enter product description"
-          ></textarea>
-        </div>
-
-        {/* Category */}
-        <div>
-          <label htmlFor="category" className="block text-lg font-medium text-gray-700 mb-2">
-            Category
-          </label>
-          <select
-            id="category"
-            name="category"
-            value={productData.category}
-            onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
-          >
-            <option value="" disabled>Select a category</option>
-            <option value="Free or Donate">Free or Donate</option>
-            <option value="Books and Stationery">Books and Stationery</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Clothing and Merchandise">Clothing and Merchandise</option>
-            <option value="Hostel Essentials">Hostel Essentials</option>
-            <option value="Fitness and Sports">Fitness and Sports</option>
-            <option value="Accessories">Accessories</option>
-            <option value="Events and Tickets">Events and Tickets</option>
-            <option value="Art and Craft">Art and Craft</option>
-            <option value="Services">Services</option>
-            <option value="Health and Wellness">Health and Wellness</option>
-            <option value="Miscellaneous">Miscellaneous</option>
-          </select>
-        </div>
-
-        {/* Branch */}
-        <div>
-          <label htmlFor="branch" className="block text-lg font-medium text-gray-700 mb-2">
-            Branch
-          </label>
-          <select
-            id="branch"
-            name="branch"
-            value={productData.branch}
-            onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
-          >
-            <option value="" disabled>Select your branch</option>
-            {branches.map((branch, index) => (
-              <option key={index} value={branch}>{branch}</option>
-            ))}
-          </select>
-        </div>
-
-        {/* Year */}
-        <div>
-          <label htmlFor="year" className="block text-lg font-medium text-gray-700 mb-2">
-            Year
-          </label>
-          <select
-            id="year"
-            name="year"
-            value={productData.year}
-            onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
-          >
-            <option value="" disabled>Select your year</option>
-            <option value="1st Year">1st Year</option>
-            <option value="2nd Year">2nd Year</option>
-            <option value="3rd Year">3rd Year</option>
-            <option value="4th Year">Final Year</option>
-            <option value="Alumni">Alumni</option>
-          </select>
-        </div>
-
-        {/* Product Image */}
-        <div>
-          <label htmlFor="images" className="block text-lg font-medium text-gray-700 mb-2">
-            Product Image
-          </label>
-          <input
-            type="file"
-            id="images"
-            name="images"
-            onChange={handleFileChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
-          {uploading && <p className="text-sm text-gray-500 mt-2">Uploading image...</p>}
         </div>
 
-        {/* Submit Button */}
         <div className="text-center">
           <button
             type="submit"

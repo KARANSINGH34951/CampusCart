@@ -33,15 +33,19 @@ const productSchema = new mongoose.Schema({
       'Miscellaneous',
     ],
   },
-  stock: {
-    type: Number,
-    min: 0,
-    default: 0,
-  },
   images: {
     type: [String],
     required: true,
     default: "https://via.placeholder.com/150", 
+  },
+  branch: {
+    type: String,
+    enum: ["Computer Science", "Electronics", "Mechanical", "Civil", "Electrical","Fire and Safety","Chemical","Aeronautical","Automobile","Biotechnology","Agriculture","Architecture","Bio Medical","Bio Technology","Chemical","Civil","Computer Science","Electrical","Electronics","Environmental","Fashion","Food Technology","Industrial","Information Technology","Instrumentation","Marine","Mechanical","Metallurgy","Mining","Nuclear","Production","Textile","Other"], 
+    required: true,
+  },
+  year: {
+    type: String,
+    required: true,
   },
   ratings: {
     type: Number,

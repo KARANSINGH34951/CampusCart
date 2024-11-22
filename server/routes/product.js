@@ -5,15 +5,15 @@ const productRoute= express.Router();
 
 productRoute.post("/createproduct",async (req,res)=>{
     try {
-      const {name,description,price,category,stock,images,ratings}=req.body;
+      const {name,description,price,category,branch,images,year}=req.body;
       const prouctsave=new Product({
         name,
         description,
         price,
         category,
-        stock,
+        branch,
+        year,
         images,
-        ratings
       })
 
       await prouctsave.save();
