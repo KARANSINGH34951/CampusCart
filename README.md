@@ -27,5 +27,5 @@ CampusCart is a platform where students can sell, exchange, or give away their u
 ## How to Run Locally
 1. Clone the repo:
    ```bash
-   git clone https://github.com/username/CampusCart.git
+   git clone https://github.com/KARANSINGH34951/CampusCart.git
    cd CampusCart
