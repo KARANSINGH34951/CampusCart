@@ -29,95 +29,70 @@ function ShoppingHeader() {
 
   return (
   <div>
-      <nav className="bg-white shadow-lg">
-      <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-        {/* Logo */}
-        <a href="/" className="text-2xl font-bold text-gray-800">
-          CampusCart
-        </a>
+         <header className="absolute inset-x-0 top-0 z-10 w-full">
+        <div className="px-4 mx-auto sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16 lg:h-20">
+                <div className="flex-shrink-0">
+                    <a href="#" title="" className="flex">
+                        <img className="w-auto h-8" src="https://th.bing.com/th/id/OIP.Jc4_fewy2DM4SNzlqWDRYAHaHa?w=165&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="" />
+                    </a>
+                </div>
 
-        {/* Links and Search Bar */}
-        <div className="hidden md:flex space-x-6 items-center">
-          <a href="/" className="text-gray-800 hover:text-gray-500">
-            Home
-          </a>
-          <a href="/products" className="text-gray-800 hover:text-gray-500">
-            Products
-          </a>
-          <a href="/categories" className="text-gray-800 hover:text-gray-500">
-            Categories
-          </a>
+                <div className="hidden lg:flex lg:items-center lg:justify-center lg:space-x-10">
+                    <a href="#" title="" className="text-base text-white transition-all duration-200 hover:text-opacity-80"> Features </a>
 
-          {/* Search Bar */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search products"
-              className="border rounded-lg py-1 px-4 focus:outline-none focus:ring focus:ring-gray-300"
-            />
-            <button className="absolute right-2 top-1 text-gray-500">
-              <FaSearch />
-            </button>
-          </div>
+                    <a href="#" title="" className="text-base text-white transition-all duration-200 hover:text-opacity-80"> Solutions </a>
+
+                    <a href="#" title="" className="text-base text-white transition-all duration-200 hover:text-opacity-80"> Resources </a>
+
+                    <a href="#" title="" className="text-base text-white transition-all duration-200 hover:text-opacity-80"> Pricing </a>
+                </div>
+
+                <div className="lg:flex lg:items-center lg:justify-end lg:space-x-6 sm:ml-auto">
+                    <button onClick={handlelogout} title="" className="hidden text-base text-white transition-all duration-200 lg:inline-flex hover:text-opacity-80"> Log out </button>
+
+                    <a href="#" title="" className="inline-flex items-center justify-center px-3 sm:px-5 py-2.5 text-sm sm:text-base font-semibold transition-all duration-200 text-white bg-white/20 hover:bg-white/40 focus:bg-white/40 rounded-lg" role="button"> Apply for free </a>
+                </div>
+
+                <button
+  type="button"
+  className="inline-flex p-2 ml-1 text-white transition-all duration-200 rounded-md sm:ml-4 lg:hidden focus:bg-gray-800 hover:bg-gray-800"
+>
+  {/* Menu open: "hidden", Menu closed: "block" */}
+  <svg
+    className="block w-6 h-6"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M4 6h16M4 12h16m-7 6h7"
+    />
+  </svg>
+  {/* Menu open: "block", Menu closed: "hidden" */}
+  <svg
+    className="hidden w-6 h-6"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+</button>
+
+            </div>
         </div>
-
-        {/* Icons for Cart and User */}
-        <div className="flex items-center space-x-4">
-          <a href="/cart" className="text-gray-800 hover:text-gray-500">
-            <FaShoppingCart className="text-2xl" />
-          </a>
-          <a href="/account" className="text-gray-800 hover:text-gray-500">
-            <FaUserCircle className="text-2xl" />
-          </a>
-
-          <button className='bg-black text-white rounded-lg px-5 py-2' onClick={handlelogout}>Logout</button>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button className="text-gray-800 focus:outline-none">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16m-7 6h7"
-              ></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className="md:hidden px-4 py-2">
-        <a href="/" className="block py-1 text-gray-800 hover:text-gray-500">
-          Home
-        </a>
-        <a
-          href="/products"
-          className="block py-1 text-gray-800 hover:text-gray-500"
-        >
-          Products
-        </a>
-        <a
-          href="/categories"
-          className="block py-1 text-gray-800 hover:text-gray-500"
-        >
-          Categories
-        </a>
-       
-      </div>
-    </nav>
-
-    <div className='mt-16'>
-    </div>
-
+    </header>
     
   </div>
   );
