@@ -5,7 +5,7 @@ import HeroComponent from './HeroComponent'
 
 const  ShoppingLayout = () => {
   return (
-    <div className='flex flex-col bg-white overflow-hidden'>
+    <div className='flex flex-col bg-website-gradient overflow-hidden'>
       {/* common header */}
       {/* <ShoppingHeader/> */}
       <HeroComponent/>

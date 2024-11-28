@@ -29,7 +29,7 @@ function ShoppingHeader() {
 
   return (
   <div>
-         <header className="absolute inset-x-0 top-0 z-10 w-full">
+         <header className="inset-x-0 top-0 z-10 w-full fixed">
         <div className="px-4 mx-auto sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16 lg:h-20">
                 <div className="flex-shrink-0">

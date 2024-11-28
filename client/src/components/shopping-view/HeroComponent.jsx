@@ -15,9 +15,9 @@ const HeroComponent = () => {
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative z-20">
             <div className="max-w-xl mx-auto text-center">
                 <h1 className="text-4xl font-bold sm:text-6xl">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-white"> Simplified credit cards for students </span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-white"> Simplified shopping MarketPlace for students </span>
                 </h1>
-                <p className="mt-5 text-base text-white sm:text-xl">No more hassle taking loans and making payments. Try Postcrats credit card, make your life simple.</p>
+                <p className="mt-5 text-base text-white sm:text-xl"> Your One-Stop Student Marketplace – Simplifying Shopping, Saving Money, and Elevating Your Campus Life!</p>
 
                 <a href="#" title="" className="inline-flex items-center px-6 py-4 mt-8 font-semibold text-white transition-all duration-200 bg-blue-600 rounded-lg sm:mt-16 hover:bg-blue-700 focus:bg-blue-700" role="button">
                     Apply for free

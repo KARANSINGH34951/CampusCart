@@ -58,11 +58,11 @@ const Home = () => {
       <div className="flex-1">
         <h1 className="text-3xl font-bold mb-8 text-center">Home Page</h1>
         {products.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
             {filteredProducts.map((product) => (
               <div
                 key={product._id}
-                className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-all"
+                className="bg-[#1A1A1A]/80 text-[#EAEAEA] shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-all"
               >
                 <img
                   src={product.images || 'https://via.placeholder.com/150'}
