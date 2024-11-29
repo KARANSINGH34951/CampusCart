@@ -11,6 +11,7 @@ import AdminFeatures from './pages/admin-view/AdminFeatures';
 import ShoppingLayout from './components/shopping-view/ShoppingLayout';
 import NotFound from './pages/NotFound/NotFound';
 import Home from './pages/shopping-view/Home';
+import BuyNow from './pages/shopping-view/BuyNow';
 import Listing from './pages/shopping-view/Listing';
 import Checkout from './pages/shopping-view/Checkout';
 import Account from './pages/shopping-view/Account';
@@ -62,6 +63,7 @@ function App() {
             <Route path='checkout' element={<Checkout />} />
             <Route path='account' element={<Account />} />
             <Route path='addproduct' element={<AddProducts />} />
+            <Route path='buynow' element={<BuyNow/>} />
           </Route>
 
           <Route path='/unauthpage' element={<UnauthPage />} />

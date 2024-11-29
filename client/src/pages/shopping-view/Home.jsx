@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CategoryFilter from '../../components/shopping-view/CategoryFilter'; // Import the filter component
+import BuyNow from './BuyNow';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -26,7 +27,9 @@ const Home = () => {
   };
 
   const handleBuyNow = (product) => {
-    console.log("Buy Now", product);
+    console.log(product);
+    
+    navigate("/shop/buynow", { state: { product } });
   };
 
   useEffect(() => {
@@ -56,7 +59,7 @@ const Home = () => {
 
       {/* Products Section */}
       <div className="flex-1">
-        <h1 className="text-3xl font-bold mb-8 text-center">Home Page</h1>
+        {/* <h1 className="text-3xl font-bold mb-8 text-center">Home Page</h1> */}
         {products.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
             {filteredProducts.map((product) => (
