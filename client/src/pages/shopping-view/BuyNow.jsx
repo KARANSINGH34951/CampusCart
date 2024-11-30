@@ -5,8 +5,9 @@ const BuyNow = () => {
   const { product } = location.state;
 
   return (
-    <div>
+    <div className='bg-white'>
       <h1>Buy Now</h1>
+      <img src={product.images} alt="productImg" />
       <p>Product Name: {product.name}</p>
       <p>Price: ₹{product.price}</p>
     

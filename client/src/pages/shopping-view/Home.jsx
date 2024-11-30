@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CategoryFilter from '../../components/shopping-view/CategoryFilter'; // Import the filter component
-import BuyNow from './BuyNow';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
