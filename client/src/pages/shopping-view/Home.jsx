@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import CategoryFilter from '../../components/shopping-view/CategoryFilter'; // Import the filter component
+import CategoryFilter from '../../components/shopping-view/CategoryFilter';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -26,9 +26,13 @@ const Home = () => {
   };
 
   const handleBuyNow = (product) => {
-    console.log(product);
-    
+    console.log('Buy Now:', product);
     navigate("/shop/buynow", { state: { product } });
+  };
+
+  const handleAddToCart = (product) => {
+    console.log('Add to Cart:', product);
+    
   };
 
   useEffect(() => {
@@ -58,7 +62,6 @@ const Home = () => {
 
       {/* Products Section */}
       <div className="flex-1">
-        {/* <h1 className="text-3xl font-bold mb-8 text-center">Home Page</h1> */}
         {products.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
             {filteredProducts.map((product) => (
@@ -73,26 +76,29 @@ const Home = () => {
                 />
                 <div className="p-4">
                   <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-                  <p className="text-gray-600 mb-2">{product.description}</p>
                   <div className="flex justify-between items-center mb-4">
                     <p className="text-lg font-bold text-blue-500">${product.price}</p>
                     <p className="text-sm text-yellow-600">{product.ratings} / 5</p>
                   </div>
-                  
-                  {/* Displaying the brand and year */}
                   <p className="text-sm text-gray-500 mb-2">Branch: {product.branch}</p>
                   <p className="text-sm text-gray-500 mb-2">Year: {product.year}</p>
-
                   <p className="text-sm text-gray-500 mb-2">Category: {product.category}</p>
-                  
 
-                  {/* Buy Now Button */}
-                  <button
-                    onClick={() => handleBuyNow(product)}
-                    className="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition-all"
-                  >
-                    Buy Now
-                  </button>
+                 
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleBuyNow(product)}
+                      className="flex-1 bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 transition-all"
+                    >
+                      Buy Now
+                    </button>
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="flex-1 bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-all"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
