@@ -1,5 +1,5 @@
 import React from 'react'
-import Forms from '../../components/Common/forms'
+import Forms from '../../components/Common/Forms'
 
 const Login = () => {
   return (
