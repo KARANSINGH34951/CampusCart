@@ -53,7 +53,7 @@ const AddProducts = () => {
       const formData = new FormData();
       formData.append('image', selectedFile);
 
-      const uploadResponse = await axios.post('http://localhost:3000/upload', formData, {
+      const uploadResponse = await axios.post('https://campuscart-campus-cart.up.railway.app/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -61,7 +61,7 @@ const AddProducts = () => {
 
       const imageUrl = uploadResponse.data.imageUrl;
 
-      const response = await axios.post('http://localhost:3000/product/createproduct', {
+      const response = await axios.post('https://campuscart-campus-cart.up.railway.app/product/createproduct', {
         ...productData,
         images: imageUrl,
       });

@@ -10,7 +10,7 @@ const AdminHeader = () => {
   const dispatch=useDispatch();
 
   const handlelogout=async ()=>{
-    const loggedIn=await axios.get("http://localhost:3000/auth/logout")
+    const loggedIn=await axios.get("https://campuscart-campus-cart.up.railway.app/auth/logout")
     console.log(loggedIn); 
     dispatch(logout())
     navigate("/") 

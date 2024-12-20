@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 import dotenv from "dotenv";
 dotenv.config();
 
+const PORT=process.env.PORT || 3000;
+
 //connection of DB from other folder
 import {dbConnect} from './dbConfig/dbConnect.js';
 import authRoute from './routes/auth.js';
@@ -33,7 +35,7 @@ app.use("/admin",adminRouter);
 //connection of DB
 dbConnect().then(()=>{
   console.log("database connected..");
-  app.listen(3000,()=>{
+  app.listen(PORT,()=>{
     console.log("server running..");
     
   })  

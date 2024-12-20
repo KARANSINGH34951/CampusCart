@@ -12,7 +12,7 @@ const Home = () => {
   // Fetch products
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/product/getproducts');
+      const response = await axios.get('https://campuscart-campus-cart.up.railway.app/product/getproducts');
       setProducts(response.data.allProducts);
       setFilteredProducts(response.data.allProducts);
       // Extract unique categories

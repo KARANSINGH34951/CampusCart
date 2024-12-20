@@ -9,7 +9,7 @@ const AdminDashboard = () => {
   // Fetch Users
   const getUsers = async () => {
     try {
-      const usersData = await axios.get("http://localhost:3000/admin");
+      const usersData = await axios.get("https://campuscart-campus-cart.up.railway.app/admin");
       setUsers(usersData.data.users);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        await axios.delete(`http://localhost:3000/admin/${id}`);
+        await axios.delete(`https://campuscart-campus-cart.up.railway.app/admin/${id}`);
         getUsers(); // Refresh the user list
       } catch (error) {
         console.error("Error deleting user:", error);
