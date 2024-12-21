@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import CategoryFilter from '../../components/shopping-view/CategoryFilter';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import CategoryFilter from "../../components/shopping-view/CategoryFilter";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -12,27 +12,28 @@ const Home = () => {
   // Fetch products
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://campuscart-campus-cart.up.railway.app/product/getproducts');
+      const response = await axios.get(
+        "https://campuscart-campus-cart.up.railway.app/product/getproducts"
+      );
       setProducts(response.data.allProducts);
       setFilteredProducts(response.data.allProducts);
+
       // Extract unique categories
       const uniqueCategories = [
         ...new Set(response.data.allProducts.map((product) => product.category)),
       ];
       setCategories(uniqueCategories);
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
     }
   };
 
   const handleBuyNow = (product) => {
-    console.log('Buy Now:', product);
     navigate("/shop/buynow", { state: { product } });
   };
 
   const handleAddToCart = (product) => {
-    console.log('Add to Cart:', product);
-    
+    console.log("Add to Cart:", product);
   };
 
   useEffect(() => {
@@ -45,46 +46,59 @@ const Home = () => {
       const filtered = products.filter((product) => product.category === category);
       setFilteredProducts(filtered);
     } else {
-      setFilteredProducts(products); // Show all products if no category is selected
+      setFilteredProducts(products);
     }
   };
 
   const handleAddProduct = () => {
-    navigate('/shop/addproduct');
+    navigate("/shop/addproduct");
   };
 
   return (
-    <div className="flex p-6">
+    <div className="flex flex-col lg:flex-row p-6 gap-6 bg-gray-50 min-h-screen">
       {/* Left Sidebar for Category Filter */}
-      <aside className="mr-6 w-1/4">
-        <CategoryFilter categories={categories} onCategorySelect={handleCategorySelect} />
+      <aside className="lg:w-1/4 bg-gradient-to-b from-blue-900 to-blue-600 text-white p-4 rounded-md shadow-lg">
+        <h2 className="text-lg font-semibold mb-4">Categories</h2>
+        <CategoryFilter
+          categories={categories}
+          onCategorySelect={handleCategorySelect}
+        />
       </aside>
 
       {/* Products Section */}
       <div className="flex-1">
-        {products.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+        {filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
               <div
                 key={product._id}
-                className="bg-[#1A1A1A]/80 text-[#EAEAEA] shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-all"
+                className="bg-white text-gray-800 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 hover:shadow-xl transition-all"
               >
                 <img
-                  src={product.images || 'https://via.placeholder.com/150'}
+                  src={product.images || "https://via.placeholder.com/150"}
                   alt={product.name}
-                  className="w-full h-48 object-cover mb-4"
+                  className="w-full h-48 object-cover"
                 />
                 <div className="p-4">
                   <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
                   <div className="flex justify-between items-center mb-4">
-                    <p className="text-lg font-bold text-blue-500">${product.price}</p>
-                    <p className="text-sm text-yellow-600">{product.ratings} / 5</p>
+                    <p className="text-lg font-bold text-blue-500">
+                      ${product.price}
+                    </p>
+                    <p className="text-sm text-yellow-500">
+                      {product.ratings} / 5
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-500 mb-2">Branch: {product.branch}</p>
-                  <p className="text-sm text-gray-500 mb-2">Year: {product.year}</p>
-                  <p className="text-sm text-gray-500 mb-2">Category: {product.category}</p>
+                  <p className="text-sm text-gray-500 mb-2">
+                    Branch: {product.branch}
+                  </p>
+                  <p className="text-sm text-gray-500 mb-2">
+                    Year: {product.year}
+                  </p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    Category: {product.category}
+                  </p>
 
-                 
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleBuyNow(product)}
@@ -104,11 +118,13 @@ const Home = () => {
             ))}
           </div>
         ) : (
-          <p>No products available at the moment.</p>
+          <p className="text-center text-gray-600">
+            No products available at the moment.
+          </p>
         )}
         <button
           onClick={handleAddProduct}
-          className="fixed bottom-6 right-6 bg-blue-500 text-white p-4 rounded-full shadow-lg text-3xl flex items-center justify-center hover:bg-blue-600 transition-all"
+          className="fixed bottom-6 right-6 bg-blue-500 text-white p-4 rounded-full shadow-lg text-3xl flex items-center justify-center hover:bg-blue-600 transition-transform transform hover:scale-110"
         >
           +
         </button>
