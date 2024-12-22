@@ -55,7 +55,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row p-6 gap-6 bg-gray-50 min-h-screen">
+    <div className="flex flex-col lg:flex-row p-6 gap-6 bg-gray-50 h-auto">
       {/* Left Sidebar for Category Filter */}
       <aside className="lg:w-1/4 bg-gradient-to-b from-blue-900 to-blue-600 text-white p-4 rounded-md shadow-lg">
         <h2 className="text-lg font-semibold mb-4">Categories</h2>
