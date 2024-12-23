@@ -13,6 +13,7 @@ import authRoute from './routes/auth.js';
 import productRoute from './routes/product.js';
 import uploadRoute from './routes/uploads.js';
 import adminRouter from './routes/admin.js';
+import cartRouter from './routes/cart.js'
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/auth",authRoute);
 app.use("/product",productRoute);
 app.use("/upload",uploadRoute);
 app.use("/admin",adminRouter);
+app.use("/cart",cartRouter);
 
 //connection of DB
 dbConnect().then(()=>{
