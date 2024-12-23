@@ -11,7 +11,7 @@ const ProductCard = ({ product, onBuyNow, onAddToCart }) => {
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
         <div className="flex justify-between items-center mb-4">
-          <p className="text-lg font-bold text-blue-500">${product.price}</p>
+          <p className="text-lg font-bold text-blue-500">₹{product.price}</p>
           <p className="text-sm text-yellow-500">
             ⭐ {product.ratings} / 5
           </p>

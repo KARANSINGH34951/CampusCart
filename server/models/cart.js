@@ -1,23 +1,34 @@
-import mongoose, { mongo } from "mongoose"
+import mongoose from "mongoose";
 
-const CartSchema= new mongoose.Schema({
-  userId:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"User",
-    required:true
+const CartSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true, 
+    },
+    items: [
+      {
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          default: 1, 
+          min: [1, "Quantity cannot be less than 1"], 
+        },
+      },
+    ],
   },
+  {
+    timestamps: true, 
+  }
+);
 
-  items:[
-    {
-      productId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Product",
-        required:true,
-      }
-    }
-  ]
-},{
-  timestamps:true
-})
+const Cart = mongoose.model("Cart", CartSchema);
 
-export const Cart=mongoose.model("cart",CartSchema)
+export default Cart;
