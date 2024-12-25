@@ -18,7 +18,8 @@ const ProductCard = ({ product, onBuyNow, onAddToCart }) => {
         </div>
         <p className="text-sm text-gray-500 mb-2">Branch: {product.branch}</p>
         <p className="text-sm text-gray-500 mb-2">Year: {product.year}</p>
-        <p className="text-sm text-gray-500 mb-4">Category: {product.category}</p>
+        <p className="text-sm text-gray-500 mb-2">Category: {product.category}</p>
+        <p className="text-sm text-gray-500 mb-4">Created by: {product.createdBy.userName || "Unknown"}</p>
 
         <div className="flex gap-2">
           <button

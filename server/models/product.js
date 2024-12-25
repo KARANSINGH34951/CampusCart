@@ -53,6 +53,10 @@ const productSchema = new mongoose.Schema({
     min: 0,
     max: 5,
   },
+  createdBy:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
   createdAt: {
     type: Date,
     default: Date.now,

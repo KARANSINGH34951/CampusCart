@@ -14,6 +14,7 @@ productRoute.post("/createproduct",async (req,res)=>{
         branch,
         year,
         images,
+        createdBy: req.user._id
       })
 
       await prouctsave.save();
@@ -26,14 +27,22 @@ productRoute.post("/createproduct",async (req,res)=>{
     }
 })
 
-productRoute.get("/getproducts",async (req,res)=>{
-  const allProducts=await Product.find({});
+productRoute.get("/getproducts", async (req, res) => {
+  try {
+    const allProducts = await Product.find({}).populate("createdBy", "userName email").exec();
 
-  res.status(200).json({
-    success:"true",
-    message:"all user deliver",
-    allProducts
-  })
-})
+    res.status(200).json({
+      success: true,
+      message: "All products retrieved successfully",
+      products: allProducts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching products",
+      error: error.message, 
+    });
+  }
+});
 
 export default productRoute;
