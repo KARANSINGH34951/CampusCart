@@ -31,10 +31,32 @@ const Home = () => {
     navigate("/shop/buynow", { state: { product } });
   };
 
-  const handleAddToCart = (product) => {
-    console.log("Add to Cart:", product);
+  const handleAddToCart = async (product) => {
+    try {
+      const userId = "USER_ID_FROM_AUTH"; 
+  
+      const response = await axios.post(
+        "https://campuscart-campus-cart.up.railway.app/cart/add-to-cart",
+        {
+          userId,
+          productId: product._id,
+          quantity: 1, // Default to 1 for now
+        }
+      );
+  
+      if (response.data.success) {
+        console.log("Product added to cart successfully:", response.data.cart);
+        alert("Product added to cart!");
+      } else {
+        console.error("Error adding product to cart:", response.data.message);
+        alert("Failed to add product to cart.");
+      }
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      alert("An error occurred while adding the product to the cart.");
+    }
   };
-
+  
   const handleAddProduct = () => {
     navigate("/shop/addproduct");
   };

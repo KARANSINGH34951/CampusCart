@@ -56,6 +56,8 @@ const Forms = ({ formType }) => {
         email: formData.email,
         password: formData.password,
       });
+      console.log(response.data._id);
+      
       setSuccessMessage("Login successful!");
       dispatch(setuser(response.data));
       // toast.success('Login successful! Welcome back!');

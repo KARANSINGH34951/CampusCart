@@ -80,16 +80,20 @@ authRoute.post("/login", async (req, res) => {
           { expiresIn: "2h" }
         );
 
+        console.log(user._id);
+        
+
         // Add the token inside the cookies as the response to the user
         res.cookie("token", token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           maxAge: 2 * 60 * 60 * 1000, 
         });
-        
+
         res.json({
           success: true,
           message: "Login successful",
+          userId: user._id, 
           userName: user.userName,
           email: user.email,
           role: user.role,

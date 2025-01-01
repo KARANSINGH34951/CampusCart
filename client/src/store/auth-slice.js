@@ -6,7 +6,8 @@ const initialState = {
   user: {
     userName: '',
     email: '',
-    role:''
+    role: '',
+    id: '' 
   },
 };
 
@@ -18,16 +19,18 @@ const authSlice = createSlice({
       state.user = {
         userName: action.payload.userName,
         email: action.payload.email,
-        role:action.payload.role
+        role: action.payload.role,
+        id: action.payload._id 
       };
-      state.isauthenticated = true;
+      state.isauthenticated = true; 
     },
     logout: (state) => {
-      state.isauthenticated = false; 
+      state.isauthenticated = false;
       state.user = {
         userName: '',
         email: '',
-        role:''
+        role: '',
+        id: '' 
       };
     },
   },

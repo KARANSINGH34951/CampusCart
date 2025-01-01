@@ -50,13 +50,13 @@ function ShoppingHeader() {
               <input
                 type="text"
                 placeholder="Search for products..."
-                className="w-full px-4 py-2 text-gray-800 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full px-4 py-2 text-gray-800 rounded-xl focus:ring-2 focus:ring-black focus:outline-none"
               />
               <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             <div className="relative">
               <button className="flex items-center text-white relative">
                 <span className="ml-2 hidden lg:inline-block">

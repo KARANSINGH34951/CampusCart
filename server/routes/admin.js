@@ -46,7 +46,7 @@ try {
 })
 
 adminRouter.get("/filter",async (req,res)=>{
-
+  console.log("filter")
 
 })
 
