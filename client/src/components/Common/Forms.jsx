@@ -30,7 +30,7 @@ const Forms = ({ formType }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post("https://campuscart-campus-cart.up.railway.app/auth/register", {
+      const response = await axios.post("http://localhost:3000/auth/register", {
         userName: formData.name,
         email: formData.email,
         password: formData.password,
@@ -52,7 +52,7 @@ const Forms = ({ formType }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post("https://campuscart-campus-cart.up.railway.app/auth/login", {
+      const response = await axios.post("http://localhost:3000/auth/login", {
         email: formData.email,
         password: formData.password,
       });

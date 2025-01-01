@@ -13,7 +13,7 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://campuscart-campus-cart.up.railway.app/product/getproducts"
+        "http://localhost:3000/product/getproducts"
       );
       setProducts(response.data.allProducts);
       setFilteredProducts(response.data.allProducts);
@@ -36,7 +36,7 @@ const Home = () => {
       const userId = "USER_ID_FROM_AUTH"; 
   
       const response = await axios.post(
-        "https://campuscart-campus-cart.up.railway.app/cart/add-to-cart",
+        "http://localhost:3000/cart/add-to-cart",
         {
           userId,
           productId: product._id,
