@@ -92,7 +92,7 @@ authRoute.post("/login", async (req, res) => {
         res.json({
           success: true,
           message: "Login successful",
-          userId: user._id, 
+          userId:  user._id.toString(), 
           userName: user.userName,
           email: user.email,
           role: user.role,
