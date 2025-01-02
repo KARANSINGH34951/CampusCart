@@ -49,7 +49,7 @@ const Home = () => {
       const userId = "USER_ID_FROM_AUTH"; // Replace with actual user ID from authentication
 
       const response = await axios.post(
-        "http://localhost:3000/cart/add",
+        "https://campuscart-campus-cart.up.railway.app/cart/add",
         {
           userId,
           productId: product._id,

@@ -13,7 +13,7 @@ function ShoppingHeader() {
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/auth/logout"
+        "https://campuscart-campus-cart.up.railway.app/auth/logout"
       );
       if (response.status === 200) {
         dispatch(logout());
