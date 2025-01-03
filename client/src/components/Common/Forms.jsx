@@ -56,7 +56,7 @@ const Forms = ({ formType }) => {
         email: formData.email,
         password: formData.password,
       });
-      console.log(response.data);
+      console.log(response.data.userId);
       
       setSuccessMessage("Login successful!");
       dispatch(setuser(response.data));
