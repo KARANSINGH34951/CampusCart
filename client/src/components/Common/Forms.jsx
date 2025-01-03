@@ -52,15 +52,24 @@ const Forms = ({ formType }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post("https://campuscart-campus-cart.up.railway.app/auth/login", {
-        email: formData.email,
-        password: formData.password,
-      });
-      console.log(response.data.userId);
-      
+      const response = await axios.post(
+        "https://campuscart-campus-cart.up.railway.app/auth/login",
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
+      console.log(response.data);
+  
+      // Log the userId to verify
+      if (response.data.userId) {
+        console.log("User ID:", response.data.userId);
+      } else {
+        console.log("User ID not received in response.");
+      }
+  
       setSuccessMessage("Login successful!");
       dispatch(setuser(response.data));
-      // toast.success('Login successful! Welcome back!');
       response.data.role === "admin"
         ? navigate("/admin/dashboard")
         : navigate("/shop/home");
@@ -73,6 +82,7 @@ const Forms = ({ formType }) => {
       setLoading(false);
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();

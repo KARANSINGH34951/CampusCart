@@ -69,45 +69,43 @@ authRoute.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (user) {
-      const comparepassword = await bcrypt.compare(password, user.password);
-
-      if (comparepassword) {
-        // Create token
-        const token = jsonwebtoken.sign(
-          { _id: user._id, email: user.email },
-          "karan@123",
-          { expiresIn: "2h" }
-        );
-
-        // Add the token inside the cookies as the response to the user
-        res.cookie("token", token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          maxAge: 2 * 60 * 60 * 1000, 
-        });
-
-        console.log(user._id);
-        
-        res.json({
-          success: true,
-          message: "Login successful",
-          userId: user._id.toString(),
-          userName: user.userName,
-          email: user.email,
-          role: user.role,
-        });
-        
-      } else {
-        res.status(400).json({ success: false, message: "Email or password is incorrect" });
-      }
-    } else {
-      res.status(400).json({ success: false, message: "Email or password is incorrect" });
+    if (!user) {
+      return res.status(400).json({ success: false, message: "Email or password is incorrect" });
     }
+
+    const comparePassword = await bcrypt.compare(password, user.password);
+    if (!comparePassword) {
+      return res.status(400).json({ success: false, message: "Email or password is incorrect" });
+    }
+
+    const token = jsonwebtoken.sign(
+      { _id: user._id, email: user.email },
+      "karan@123",
+      { expiresIn: "2h" }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
+    });
+
+    console.log("User ID:", user._id.toString());
+
+    res.json({
+      success: true,
+      message: "Login successful",
+      userId: user._id,
+      userName: user.userName,
+      email: user.email,
+      role: user.role,
+    });
   } catch (error) {
+    console.error("Error during login:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
+
 
 
 authRoute.get("/logout", async (req, res) => {
