@@ -90,12 +90,12 @@ authRoute.post("/login", async (req, res) => {
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
     });
 
-    console.log("User ID:", user._id.toString());
+    const userIds=user._id.toString();
 
     res.json({
       success: true,
       message: "Login successful",
-      userId: user._id,
+      userId: userIds,
       userName: user.userName,
       email: user.email,
       role: user.role,
